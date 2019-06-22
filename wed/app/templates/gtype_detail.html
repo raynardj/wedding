@@ -1,0 +1,26 @@
+{%extends "appbuilder/base.html"%}
+{%block content%}
+<h1>{{gtype.name}}</h1>
+<h2>该类别下共{{gtype.gcount}}位宾客</h2>
+
+<ul class = "list-group">
+    {%for g in gtype.guests %}
+    <li class="list-group-item">
+        <a href="/guest/detail/{{g.id}}/" class="btn-default btn">
+            <h4>{{g.fullname}}</h4>
+            {%if g.plus%}携带{{g.plus}}位宾客{%else%}不携带宾客{%endif%}
+            ,{%if g.babies%}携带{{g.babies}}位宝宝{%else%}不携带宝宝{%endif%}
+
+        </a>
+        <a href="/guest/edit/{{g.id}}" class="btn btn-default">
+            编辑
+        </a>
+        <br>
+        {%if g.iniviation%}已发请帖{%else%}还未发送请帖{%endif%}
+        {%if g.ishotel%}需要安排住宿{%endif%}
+        {%if g.ispickup%}需要安排接驳{%endif%}
+
+    </li>
+    {%endfor%}
+</ul>
+{%endblock%}

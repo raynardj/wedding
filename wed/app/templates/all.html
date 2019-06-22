@@ -1,0 +1,7 @@
+{%extends "appbuilder/base.html"%}
+{%block content%}
+<h1>共{{guest_total}} 位宾客</h1>
+{% for g in guests%}
+{{g}}
+{% endfor %}
+{%endblock%}}
