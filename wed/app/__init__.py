@@ -1,7 +1,7 @@
 import logging
 
 from flask import Flask
-from flask_appbuilder import AppBuilder, SQLA
+from flask_appbuilder import AppBuilder, SQLA, IndexView,expose
 
 """
  Logging configuration
@@ -13,7 +13,16 @@ logging.getLogger().setLevel(logging.DEBUG)
 app = Flask(__name__)
 app.config.from_object("config")
 db = SQLA(app)
-appbuilder = AppBuilder(app, db.session)
+
+class CustomeIndexView(IndexView):
+    index_template = "index.html"
+    route_base = "/"
+
+    @expose("/")
+    def index(self):
+        return self.render_template("index.html")
+
+appbuilder = AppBuilder(app, db.session, indexview=CustomeIndexView)
 
 
 """
