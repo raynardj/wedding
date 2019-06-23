@@ -1,7 +1,15 @@
 {%extends "appbuilder/base.html"%}
 {%block content%}
-<h1>共{{babycount}}个宝宝椅</h1>
+<h1>{{babycount}}位可爱迷人靓丽的👶</h1>
+
+<a href="/guest/all/">查看宾客列表</a>
+<ul class="list-group">
 {% for bg in babyguest%}
-{{bg}}
+    <li class="list-group-item">
+        <a href="/guest/edit/{{bg.id}}">✏️</a><a href="/guest/detail/{{bg.id}}/">{{bg.fullname}}</a>家的Baby
+        <br>
+        <a href="/gtype/detail/{{bg.type_id}}/">{{bg.type}}</a>
+    </li>
 {% endfor %}
+</ul>
 {%endblock%}}

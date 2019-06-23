@@ -1,0 +1,32 @@
+{%extends "appbuilder/base.html"%}
+{%block content%}
+<h1>分组情况</h1>
+<hr>
+<div>
+    <a href="/guest/all/">宾客名单</a>
+</div>
+<hr>
+<ul class="list-group">
+    {%for g in groups%}
+    <li class="list-group-item adult-count" data-gcount="{{g.gcount}}">
+        <a href="/gtype/edit/{{g.id}}">✏️</a>
+        <a href="/gtype/detail/{{g.id}}/">{{g.name}}</a>({{g.gcount}})
+    </li>
+    {%endfor%}
+</ul>
+共计 <span id = "adult_total"></span>
+
+{%endblock%}
+
+{%block tail_js%}
+{{super()}}
+<script>
+    $(document).ready(function(){
+    adulttotal = 0
+    $(".adult-count").each(function(){
+        adulttotal+=parseInt($(this).data("gcount"))
+        })
+    $("#adult_total").html(adulttotal)
+    })
+</script>
+{%endblock%}

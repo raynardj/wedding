@@ -21,6 +21,7 @@ class guestModel(Model,AuditMixin):
     type_id = db.Column(db.Integer(),db.ForeignKey(guestTypeModel.id))
     type = db.relationship(guestTypeModel)
     fullname = db.Column(db.Text())
+    # describe = db.Column(db.Text(),nullable=True)
     plus = db.Column(db.Integer(), default = 0)
     babies = db.Column(db.Integer(), default = 0)
     phone = db.Column(db.Text(),nullable = True)

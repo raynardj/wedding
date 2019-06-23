@@ -13,16 +13,21 @@ class guestTypeView(ModelView):
     add_title = "添加宾客类型"
     edit_title = "编辑宾客类型"
     list_title = "宾客大类"
-    label_columns = {"name":"类型名称","remark":"备注","guests":"包含宾客"}
+    label_columns = {"name":"类型名称","remark":"备注","guests":"包含宾客","gcount":"总人数"}
 
     add_columns = ["name","remark"]
     edit_columns = ["name", "remark"]
-    list_columns = ["name","remark","guests"]
+    list_columns = ["name","guests","gcount","remark"]
 
     @expose("/detail/<gtype_id>/")
     def detail(self,gtype_id):
         gtype = self.datamodel.get(int(gtype_id))
         return self.render_template("gtype_detail.html", gtype = gtype)
+
+    @expose("/all/")
+    def all(self):
+        groups = self.datamodel.session.query(guestTypeModel).all()
+        return self.render_template("gtype_all.html", groups = groups)
 
 
 class guestView(ModelView):
@@ -43,6 +48,11 @@ class guestView(ModelView):
     list_columns = ["fullname", "type","remark",  "phone", "invitation",
                      "ishotel",  "ispickup","babies",]
 
+    @expose("/detail/<guest_id>/")
+    def detail(self,guest_id):
+        guest = self.datamodel.get(int(guest_id))
+        return self.render_template("guest_detail.html",guest = guest)
+
     @expose("/all/")
     def all(self):
         guests = self.datamodel.session.query(guestModel).all()
@@ -55,3 +65,15 @@ class guestView(ModelView):
         babycount = sum(list(bg.babies for bg in babyguest))
         print(babyguest)
         return self.render_template("babies.html", babyguest = babyguest, babycount = babycount)
+
+    @expose("/hotel/")
+    def hotels(self):
+        guests = self.datamodel.session.query(guestModel).filter(guestModel.ishotel).all()
+        guest_total = len(guests)
+        return self.render_template("hotel.html", guests=guests, guest_total = guest_total)
+
+    @expose("/pickup/")
+    def pickups(self):
+        guests = self.datamodel.session.query(guestModel).filter(guestModel.ispickup).all()
+        guest_total = len(guests)
+        return self.render_template("pickup.html", guests=guests, guest_total=guest_total)

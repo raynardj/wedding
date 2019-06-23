@@ -1,7 +1,28 @@
 {%extends "appbuilder/base.html"%}
 {%block content%}
 <h1>共{{guest_total}} 位宾客</h1>
+<div><a href="/guest/add">添加宾客</a></div>
+<hr>
+<ul class="list-group">
 {% for g in guests%}
-{{g}}
+    <li class="list-group-item">
+        <h4>{{g.fullname}} <span style="color:#AAA;">({{g.gcount}})</span></h4>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="/guest/edit/{{g.id}}" title="编辑">✏️</a>
+                属于:<a href="/gtype/detail/{{g.type.id}}/">{{g.type.name}}</a>
+                {%if g.plus>0%}, 携{{g.plus}}人{%endif%}
+                {%if g.babies>0%},<a href="/guest/babies/" title="宝宝清单"> 携{{g.babies}}👶</a>{%endif%}
+                {%if g.ispickup>0%},<a href="/guest/pickup/" title="接送清单">🚙🚙🚙</a>{%endif%}
+                {%if g.ishotel>0%},<a href="/guest/hotel/" title="住宿清单">🏨🛏️🛏️</a>{%endif%}
+            </li>
+            {%if g.phone%}
+            <li class="list-group-item">
+            {{g.phone}}
+            </li>
+            {% endif %}
+        </ul>
+    </li>
 {% endfor %}
+</ul>
 {%endblock%}}

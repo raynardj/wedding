@@ -1,0 +1,15 @@
+{%extends "appbuilder/base.html"%}
+{%block content%}
+<h1>{{guest_total}}位需要安排住宿</h1>
+
+<a href="/guest/all/">查看宾客列表</a>
+<ul class="list-group">
+{% for g in guests%}
+    <li class="list-group-item">
+        <a href="/guest/edit/{{g.id}}">✏️</a><a href="/guest/detail/{{g.id}}/">{{g}}</a>
+        <br>
+        <a href="/gtype/detail/{{g.type_id}}/">{{g.type}}</a>
+    </li>
+{% endfor %}
+</ul>
+{%endblock%}}

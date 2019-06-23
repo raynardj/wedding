@@ -1,0 +1,43 @@
+{%extends "appbuilder/base.html"%}
+{%block content%}
+<h1>宾客:{{guest.fullname}}</h1>
+<div><a href="/guest/edit/{{guest.id}}">编辑</a></div>
+<h5>欢迎参加我们的婚礼</h5>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        您属于 <a href="/gtype/detail/{{guest.type.id}}/">{{guest.type}}</a>
+    </li>
+    <li class="list-group-item">
+        {%if guest.invitation%}已发送请帖
+        {%else%}
+        还未能发送请帖
+        <a href="/guest/invite/{{guest.id}}/" class="btn btn-danger">生成请帖</a>
+        {%endif%}
+    </li>
+    {%if guest.plus>0%}
+    <li class="list-group-item">
+        会携带{{guest.plus}}位宾客, 共{{guest.gcount}}位宾客
+    </li>
+    {%endif%}
+    {%if guest.babies>0%}
+    <li class="list-group-item">
+        会携带{{guest.babies}}位宝宝
+    </li>
+    {%endif%}
+    <li class="list-group-item">
+        "{{guest.type}}"中, 您可能会认识的其他宾客:
+        <ul class="list-group">
+        {%for otherg in guest.type.guests%}
+
+            {%if otherg.id != guest.id %}
+            <li class="list-group-item">
+                {{otherg}}
+            </li>
+            {%endif%}
+
+        {%endfor%}
+        </ul>
+    </li>
+</ul>
+{%endblock%}
