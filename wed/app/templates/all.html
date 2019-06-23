@@ -16,11 +16,6 @@
                 {%if g.ispickup>0%},<a href="/guest/pickup/" title="接送清单">🚙🚙🚙</a>{%endif%}
                 {%if g.ishotel>0%},<a href="/guest/hotel/" title="住宿清单">🏨🛏️🛏️</a>{%endif%}
             </li>
-            {%if g.phone%}
-            <li class="list-group-item">
-            {{g.phone}}
-            </li>
-            {% endif %}
         </ul>
     </li>
 {% endfor %}
