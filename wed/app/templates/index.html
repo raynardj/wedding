@@ -1,4 +1,10 @@
 {%extends "appbuilder/base.html"%}
+{%block head_js%}
+{{super()}}
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=LEGMyVpA77CxWxcaXGOyb5DeRuLopsSN">
+</script>
+{%endblock%}
 {%block content%}
 <div class="jumbotron">
   <h1>张晓晨❤️靳明晔</h1>
@@ -10,7 +16,21 @@
   </p>
 
 </div>
-    <p>
-        <img class="col-md-12 col-xs-12" src="static/img/address.png" style="border-radius:10px">
-    </p>
+    <div  id="container" style="height:300px" class="col-md-12 col-xs-12">
+
+    </div>
+{%endblock%}
+
+{%block tail_js%}
+{{super()}}
+<script>
+var map = new BMap.Map("container");
+var point = new BMap.Point(121.509, 31.207);
+map.centerAndZoom(point, 15);
+
+var local = new BMap.LocalSearch(map, {
+    renderOptions:{map: map}
+});
+local.search("花嫁丽舍世博江景店");
+</script>
 {%endblock%}
