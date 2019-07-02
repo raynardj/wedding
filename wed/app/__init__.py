@@ -1,6 +1,6 @@
 import logging
 
-from flask import Flask,Response
+from flask import Flask,Response, send_file
 from flask_appbuilder import AppBuilder, SQLA, IndexView,expose
 from wed import config
 
@@ -23,9 +23,9 @@ class CustomeIndexView(IndexView):
     def index(self):
         return self.render_template("index.html")
 
-    @expose("/mp/MP_verify_Wg4ba6rCnxiDaStD.txt")
+    @expose("/MP_verify_Wg4ba6rCnxiDaStD.txt")
     def index(self):
-        return Response("Wg4ba6rCnxiDaStD")
+        return send_file('static/MP_verify_Wg4ba6rCnxiDaStD.txt')
 
 appbuilder = AppBuilder(app, db.session, indexview=CustomeIndexView)
 
