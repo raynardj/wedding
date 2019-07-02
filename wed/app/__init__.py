@@ -24,7 +24,7 @@ class CustomeIndexView(IndexView):
         return self.render_template("index.html")
 
     @expose("/MP_verify_Wg4ba6rCnxiDaStD.txt")
-    def index(self):
+    def verify(self):
         return send_file('static/MP_verify_Wg4ba6rCnxiDaStD.txt')
 
 appbuilder = AppBuilder(app, db.session, indexview=CustomeIndexView)
