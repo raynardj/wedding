@@ -5,6 +5,7 @@ from flask_appbuilder.models.sqla.interface import SQLAInterface
 from wed.app.models.guests import guestTypeModel, guestModel
 from flask import request
 from flask_login import current_user
+from flask import g
 
 class guestTypeView(ModelView):
     route_base = "/gtype"
@@ -22,12 +23,14 @@ class guestTypeView(ModelView):
     @expose("/detail/<gtype_id>/")
     def detail(self,gtype_id):
         gtype = self.datamodel.get(int(gtype_id))
-        return self.render_template("gtype_detail.html", gtype = gtype)
+        login = True if hasattr(g.user, "id") else False
+        return self.render_template("gtype_detail.html", gtype = gtype, login = login)
 
     @expose("/all/")
     def all(self):
         groups = self.datamodel.session.query(guestTypeModel).all()
-        return self.render_template("gtype_all.html", groups = groups)
+        login = True if hasattr(g.user, "id") else False
+        return self.render_template("gtype_all.html", groups = groups, login = login)
 
 
 class guestView(ModelView):
@@ -39,11 +42,11 @@ class guestView(ModelView):
     list_title = "宾客编辑列表"
     label_columns = {"fullname":"宾客全名","type":"宾客种类","babies":"携带宝宝数","phone":"手机",
                      "ishotel":"需安排住宿","ispickup":"需车辆接送","hotel":"酒店详情","pickup":"接送详情",
-                     "invitation":"已发请柬","remark":"备注"
+                     "invitation":"已发请柬","remark":"备注", "redpack":"红包哟",
                      }
     add_columns = ["fullname", "type","plus","babies","phone","invitation",
                    "remark","ishotel","hotel","ispickup","pickup"]
-    edit_columns = ["fullname", "type","plus", "babies", "phone", "invitation",
+    edit_columns = ["fullname", "type","plus", "babies", "phone","redpack", "invitation",
                    "remark", "ishotel", "hotel", "ispickup", "pickup"]
     list_columns = ["fullname", "type","remark",  "phone", "invitation",
                      "ishotel",  "ispickup","babies",]
@@ -51,7 +54,8 @@ class guestView(ModelView):
     @expose("/detail/<guest_id>/")
     def detail(self,guest_id):
         guest = self.datamodel.get(int(guest_id))
-        return self.render_template("guest_detail.html",guest = guest)
+        login = True if hasattr(g.user,"id") else False
+        return self.render_template("guest_detail.html",guest = guest , login = login)
 
     @expose("/all/")
     def all(self):

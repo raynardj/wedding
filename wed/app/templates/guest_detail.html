@@ -15,6 +15,11 @@
         <a href="/guest/invite/{{guest.id}}/" class="btn btn-danger">生成请帖</a>
         {%endif%}
     </li>
+    {%if login %}
+    <li class="list-group-item">
+        贡献红包: {{guest.redpack}}
+    </li>
+    {%endif%}
     {%if guest.plus>0%}
     <li class="list-group-item">
         会携带{{guest.plus}}位宾客, 共{{guest.gcount}}位宾客

@@ -11,6 +11,7 @@
     <li class="list-group-item adult-count" data-gcount="{{g.gcount}}">
         <a href="/gtype/edit/{{g.id}}">✏️</a>
         <a href="/gtype/detail/{{g.id}}/">{{g.name}}</a>({{g.gcount}})
+        {%if login%}💰:{{g.moneyshow}}{%endif%}
     </li>
     {%endfor%}
 </ul>

@@ -15,6 +15,10 @@ class guestTypeModel(Model,AuditMixin):
     def gcount(self):
         return sum(list(g.gcount for g in self.guests))
 
+    @property
+    def moneyshow(self):
+        return sum(list(g.redpack if g.redpack else 0 for g in self.guests))
+
 class guestModel(Model,AuditMixin):
     __tablename__ = "guest"
     id = db.Column(db.Integer, primary_key=True)
@@ -30,6 +34,7 @@ class guestModel(Model,AuditMixin):
     ispickup = db.Column(db.Boolean(), default=False)
     pickup = db.Column(db.Text(), nullable=True)
     invitation = db.Column(db.Boolean(), default = False)
+    redpack = db.Column(db.Integer(), default=0)
     remark = db.Column(db.Text(), nullable = True)
 
     def __repr__(self):
