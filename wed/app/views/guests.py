@@ -57,6 +57,12 @@ class guestView(ModelView):
         login = True if hasattr(g.user,"id") else False
         return self.render_template("guest_detail.html",guest = guest , login = login)
 
+    @expose("/evite/<guest_id>/")
+    def evite(self, guest_id):
+        guest = self.datamodel.get(int(guest_id))
+        login = True if hasattr(g.user, "id") else False
+        return self.render_template("invitation.html", guest=guest, login=login)
+
     @expose("/all/")
     def all(self):
         guests = self.datamodel.session.query(guestModel).all()
