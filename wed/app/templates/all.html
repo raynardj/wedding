@@ -12,7 +12,7 @@
                 <a href="/guest/edit/{{g.id}}" title="编辑">✏️</a>
                 属于:<a href="/gtype/detail/{{g.type.id}}/">{{g.type.name}}</a>
                 {%if g.plus>0%}, 携{{g.plus}}人{%endif%}
-                {%if g.babies>0%},<a href="/guest/babies/" title="宝宝清单"> 携{{g.babies}}👶</a>{%endif%}
+                {%if g.babies %},<a href="/guest/babies/" title="宝宝清单"> 携{{g.babies}}👶</a>{%endif%}
                 {%if g.ispickup>0%},<a href="/guest/pickup/" title="接送清单">🚙🚙🚙</a>{%endif%}
                 {%if g.ishotel>0%},<a href="/guest/hotel/" title="住宿清单">🏨🛏️🛏️</a>{%endif%}
             </li>
