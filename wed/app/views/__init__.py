@@ -54,6 +54,8 @@ appbuilder.add_view_no_menu(photoView)
 
 appbuilder.add_link("宾客名单","/guest/all/", icon="fa-address-book",category_label="宾客",
                     category="guests",category_icon="fa-address-card")
+appbuilder.add_link("编辑宾客列表","/guest/list/", icon="fa-address-book",category_label="宾客",
+                    category="guests",category_icon="fa-address-card")
 
 appbuilder.add_link("添加宾客","/guest/add", icon="fa-user-plus",category_label="宾客",
                     category="guests",category_icon="fa-address-card")
