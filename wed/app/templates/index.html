@@ -6,10 +6,30 @@
 </script>
 {%endblock%}
 {%block content%}
-<div class="jumbotron">
+<style>
+    .huge
+    {
+        font-size:50px;
+    }
+    #index_head
+    {
+        color:#FFF;
+        background-image: url("/static/images/index_head.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat:no-repeat;
+        background-color:#4FAEF4;
+        text-shadow: 2px 2px 3px rgb(100,100,100);
+    }
+</style>
+<div class="jumbotron" id="index_head">
   <h1>张晓晨❤️靳明晔</h1>
     <h3>的美丽婚礼</h3>
-  <p>2019年9月14日 农历 己亥年 八月 十六</p>
+
+    <p>2019年9月14日 </p>
+    <p>农历 己亥年 八月 十六</p>
+
+    <p id="countdown"></p>
   <p>
       <a class="btn btn-primary btn-lg" href="/guest/all/" role="button">宾客名单</a>
       <a class="btn btn-primary btn-lg" href="/gtype/all/" role="button">宾客类别</a>
@@ -52,4 +72,5 @@ var local = new BMap.LocalSearch(map, {
 });
 local.search("花嫁丽舍世博江景店");
 </script>
+<script src="/static/js/countdown.js"></script>
 {%endblock%}
