@@ -4,6 +4,7 @@ from flask_appbuilder.models.mixins import AuditMixin
 from flask_appbuilder.models.mixins import ImageColumn
 from flask_appbuilder.filemanager import ImageManager
 from flask import Markup, url_for
+import markdown
 
 
 class photoModel(Model,AuditMixin):
@@ -31,3 +32,13 @@ class photoModel(Model,AuditMixin):
         else:
             return Markup('<a href="' + url_for('photoView.show',pk=str(self.id)) +\
              '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+class quoteModel(Model, AuditMixin):
+    __tablename__ = "quotes"
+    id = db.Column(db.Integer, primary_key=True)
+    line = db.Column(db.Text)
+
+    @property
+    def line_html(self):
+        return markdown.markdown(self.line)
+

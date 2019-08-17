@@ -75,4 +75,7 @@ appbuilder.add_link("住宿清单","/guest/hotel/", icon="fa-bed",category_label
 appbuilder.add_link("接送清单","/guest/pickup/", icon="fa-taxi",category_label="特别关注",
                     category="attention",category_icon="fa-heart")
 
+appbuilder.add_link("爱情骗人的话", "/quotes/list/", icon="fa-language",category_label="甜蜜",
+                    category="love",category_icon="fa-heart")
+
 db.create_all()

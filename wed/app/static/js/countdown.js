@@ -13,7 +13,7 @@ $(document).ready(function() {
     }
     var countDownDate = new Date("Sep 14, 2019 17:18:00").getTime();
     var countdown = document.createElement("div")
-    $(countdown).append("开始还有:<br>")
+    // $(countdown).append("开始还有:<br>")
     $(countdown).append(newNum("daytag"))
     $(countdown).append("天")
     $(countdown).append(newNum("hourtag"))

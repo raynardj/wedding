@@ -1,0 +1,91 @@
+<style>
+    a
+    {
+        color:white;
+        text-decoration:none;
+        font-size:40px;
+    }
+    #bg
+    {
+        background-image:url("/static/images/rj/{{img_url}}");
+        background-size:cover;
+        background-position: center;
+        height:100%;
+        width:100%;
+        background-color: #4FAEF4;
+        margin:0px;
+        line-height:120px;
+        text-align: center;
+    }
+    #quote_box
+    {
+        width:100%;
+        min-height:20%;
+        font-size:60px;
+        color:#FFF;
+        font-family: arial;
+        font-weight:100;
+        background-color:rgba(0,0,0,0.1);
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: perspective(1px) translateY(-50%);
+    }
+    #words
+    {
+        margin:80px;
+
+    }
+    html,body
+    {
+        height: 100%;
+        width:100%;
+        margin:0;
+        top:0px;
+        left:0px;
+    }
+    #nextline
+    {
+        font-size:50px;
+    }
+</style>
+<head>
+    <title>Love Spells</title>
+</head>
+<body>
+<div id = "bg">
+
+    <div id="quote_box">
+        <a id="backtohome" href="/">❤ 回到主页 ❤</a>
+        <div id="words">{{quote|safe}}</div>
+        <div id="nextline" onclick="location.reload()"> <i>>>> 下一句</i></div>
+    </div>
+    ︎
+</div>
+</body>
+
+<script>
+    function weixinShareTimeline(title,desc,link,imgUrl) {
+        WeixinJSBridge.invoke('shareTimeline', {
+            "img_url": imgUrl,
+            //"img_width":"640",
+            //"img_height":"640",
+            "link": link,
+            "desc": desc,
+            "title": title
+        });
+    }
+	function weixinSendAppMessage(title,desc,link,imgUrl){
+	WeixinJSBridge.invoke('sendAppMessage',{
+	//"appid":appId,
+	"img_url":imgUrl,
+	//"img_width":"640",
+	//"img_height":"640",
+	"link":link,
+	"desc":desc,
+	"title":title
+	});
+    }
+
+</script>

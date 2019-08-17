@@ -1,19 +1,33 @@
-from flask_appbuilder import ModelView, expose
+from flask_appbuilder import ModelView, expose, BaseView
 from flask import render_template
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 
 from wed.app.models.photo import photoModel
 from flask import request
 from flask_login import current_user
+from .. import app
+from wed.app.models.photo import quoteModel
+import os
+
+imglist = os.listdir(app.root_path+"/static/images/rj/")
+import random
+
+def get_all_quotes():
+    from .. import db
+    return list(q.line_html for q in db.session.query(quoteModel).all())
+
+quotes_list = get_all_quotes()
 
 class photoView(ModelView):
-    datamodel = SQLAInterface(photoModel)
-    route_base = "/album"
+    datamodel = SQLAInterface(quoteModel)
+    route_base = "/quotes"
 
-    show_title = "查看相片"
-    add_title = "上传相片"
+    add_columns = ["line"]
+    edit_columns = ["line"]
+    list_columns = ["line_html", "created_by"]
 
-    label_columns = {"photo":"照片","name":"名称", "remark":"备注"}
-
-    add_columns = ["photo","name","remark"]
-    list_columns = ["photo_img"]
+    @expose()
+    def showquote(self):
+        return self.render_template("quotes.html",
+                                    img_url = random.choice(imglist),
+                                    quote = random.choice(quotes_list))
