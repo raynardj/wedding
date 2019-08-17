@@ -12,11 +12,11 @@ import os
 imglist = os.listdir(app.root_path+"/static/images/rj/")
 import random
 
-def get_all_quotes():
-    from .. import db
-    return list(q.line_html for q in db.session.query(quoteModel).all())
-
-quotes_list = get_all_quotes()
+# def get_all_quotes():
+#     from .. import db
+#     return list(q.line_html for q in db.session.query(quoteModel).all())
+#
+# quotes_list = get_all_quotes()
 
 class photoView(ModelView):
     datamodel = SQLAInterface(quoteModel)
@@ -28,6 +28,8 @@ class photoView(ModelView):
 
     @expose()
     def showquote(self):
+        from .. import db
+        quotes_list = list(q.line_html for q in db.session.query(quoteModel).all())
         return self.render_template("quotes.html",
                                     img_url = random.choice(imglist),
                                     quote = random.choice(quotes_list))
