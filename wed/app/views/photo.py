@@ -51,7 +51,8 @@ class photoView(ModelView):
     list_columns = ["line_html", "created_by"]
 
     @expose()
-    def showquote(self):
+    @expose("/<strs>/")
+    def showquote(self,strs = ""):
         if "qimg" not in session :
             session["qimg"] = imglist
         if "qlines" not in session:
@@ -78,6 +79,7 @@ class photoView(ModelView):
         session["lastimg"] = img_url
         session["lastline"] = qline
         return self.render_template("quotes.html",
+                                    nexturl = hex(random.randint(10000, 20000)),
                                     lastbtn = lastbtn,
                                     img_url = img_url,
                                     quote = qline)
@@ -87,5 +89,6 @@ class photoView(ModelView):
         img_url = request.args.get("img")
         qline = request.args.get("line")
         return self.render_template("quotes.html",
+                                    nexturl=hex(random.randint(10000, 20000)),
                                     img_url=img_url,
                                     quote=qline)
