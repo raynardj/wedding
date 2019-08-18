@@ -3,7 +3,7 @@ from flask import render_template
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 
 from wed.app.models.photo import photoModel
-from flask import request
+from flask import request, session
 from flask_login import current_user
 from .. import app
 from wed.app.models.photo import quoteModel
@@ -28,8 +28,30 @@ class photoView(ModelView):
 
     @expose()
     def showquote(self):
-        from .. import db
-        quotes_list = list(q.line_html for q in db.session.query(quoteModel).all())
+        if "qimg" not in session :
+            session["qimg"] = imglist
+        if "qlines" not in session:
+            from .. import db
+            session["qlines"] = list(q.line_html for q in db.session.query(quoteModel).all())
+        if len(session["qimg"]) ==0:
+            session["qimg"] = imglist
+        if len(session["qlines"]) == 0:
+            from .. import db
+            session["qlines"] = list(q.line_html for q in db.session.query(quoteModel).all())
+
+        waiting = session["qimg"]
+        img_url = random.choice(waiting)
+        waiting.remove(img_url)
+        session["qimg"] = waiting
+        session["lastimg"] = img_url
+
+        unspoken = session["qlines"]
+        qline = random.choice(unspoken)
+        unspoken.remove(qline)
+        session["qlines"] = unspoken
+        session["lastline"] = qline
+        print(unspoken)
+
         return self.render_template("quotes.html",
-                                    img_url = random.choice(imglist),
-                                    quote = random.choice(quotes_list))
+                                    img_url = img_url,
+                                    quote = qline)
