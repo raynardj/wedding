@@ -39,7 +39,6 @@ def dcache(span=10):
 
 @dcache(span=60)
 def get_all_quotes():
-    print("READING FROM DB")
     from .. import db
     return list(q.line_html for q in db.session.query(quoteModel).all())
 
