@@ -65,14 +65,27 @@ class photoView(ModelView):
         img_url = random.choice(waiting)
         waiting.remove(img_url)
         session["qimg"] = waiting
-        session["lastimg"] = img_url
+
 
         unspoken = session["qlines"]
         qline = random.choice(unspoken)
         unspoken.remove(qline)
         session["qlines"] = unspoken
-        session["lastline"] = qline
 
+        lastbtn = {"line":session["lastline"],
+                   "img":session["lastimg"]} if ("lastline" in session) and ("lastimg" in session) else False
+
+        session["lastimg"] = img_url
+        session["lastline"] = qline
         return self.render_template("quotes.html",
+                                    lastbtn = lastbtn,
                                     img_url = img_url,
                                     quote = qline)
+
+    @expose("/last/")
+    def lastquote(self):
+        img_url = request.args.get("img")
+        qline = request.args.get("line")
+        return self.render_template("quotes.html",
+                                    img_url=img_url,
+                                    quote=qline)
