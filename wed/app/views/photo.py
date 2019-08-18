@@ -50,7 +50,6 @@ class photoView(ModelView):
         unspoken.remove(qline)
         session["qlines"] = unspoken
         session["lastline"] = qline
-        print(unspoken)
 
         return self.render_template("quotes.html",
                                     img_url = img_url,
