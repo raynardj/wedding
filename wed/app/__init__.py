@@ -27,6 +27,10 @@ class CustomeIndexView(IndexView):
     def verify(self):
         return send_file('static/MP_verify_Wg4ba6rCnxiDaStD.txt')
 
+    @expose("/favicon.ico")
+    def favicion(self):
+        return send_file(app.root_path+"/static/img/favicon.ico")
+
 appbuilder = AppBuilder(app, db.session, indexview=CustomeIndexView)
 
 

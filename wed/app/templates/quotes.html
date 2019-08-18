@@ -35,7 +35,6 @@
     #words
     {
         margin:80px;
-
     }
     html,body
     {
@@ -48,10 +47,12 @@
     #nextline
     {
         font-size:50px;
+        border-width: 0px;
     }
 </style>
 <head>
     <title>Love Spells</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
 <div id = "bg">
@@ -59,33 +60,13 @@
     <div id="quote_box">
         <a id="backtohome" href="/">❤ 回到主页 ❤</a>
         <div id="words">{{quote|safe}}</div>
-        <div id="nextline" onclick="location.reload()"> <i>>>> 下一句</i></div>
+        <div id="nextline">
+            {%if lastbtn%}
+            <a href="/quotes/last/?img={{lastbtn.img}}&line={{lastbtn.line}}"><i><<<上一句 </i></a>
+            {%endif%}
+            <a href="/quotes/"><i>下一句>>></i></a>
+        </div>
     </div>
     ︎
 </div>
 </body>
-
-<script>
-    function weixinShareTimeline(title,desc,link,imgUrl) {
-        WeixinJSBridge.invoke('shareTimeline', {
-            "img_url": imgUrl,
-            //"img_width":"640",
-            //"img_height":"640",
-            "link": link,
-            "desc": desc,
-            "title": title
-        });
-    }
-	function weixinSendAppMessage(title,desc,link,imgUrl){
-	WeixinJSBridge.invoke('sendAppMessage',{
-	//"appid":appId,
-	"img_url":imgUrl,
-	//"img_width":"640",
-	//"img_height":"640",
-	"link":link,
-	"desc":desc,
-	"title":title
-	});
-    }
-
-</script>
