@@ -11,6 +11,7 @@ import os
 
 imglist = os.listdir(app.root_path+"/static/images/rj/")
 import random
+import logging
 
 # def get_all_quotes():
 #     from .. import db
@@ -57,20 +58,30 @@ class photoView(ModelView):
             session["qimg"] = imglist
         if "qlines" not in session:
             session["qlines"] = get_all_quotes()
-        if len(session["qimg"]) ==0:
-            session["qimg"] = imglist
-        if len(session["qlines"]) == 0:
-            session["qlines"] = get_all_quotes()
 
         waiting = session["qimg"]
-        img_url = random.choice(waiting)
-        waiting.remove(img_url)
-        session["qimg"] = waiting
-
+        if len(waiting) ==0: # replenish img list
+            print("replenishing image list")
+            waiting = imglist
 
         unspoken = session["qlines"]
-        qline = random.choice(unspoken)
-        unspoken.remove(qline)
+        if len(unspoken) == 0: # replenish quotes list
+            print("replenishing quote list")
+            unspoken = get_all_quotes()
+
+        try:
+            img_url = random.choice(waiting)
+            waiting.remove(img_url)
+        except Exception as e:
+            img_url = random.choice(imglist)
+            logging.error(str(e))
+        session["qimg"] = waiting
+        try:
+            qline = random.choice(unspoken)
+            unspoken.remove(qline)
+        except Exception as e:
+            qline = random.choices(get_all_quotes())
+            logging.error(str(e))
         session["qlines"] = unspoken
 
         lastbtn = {"line":session["lastline"],
