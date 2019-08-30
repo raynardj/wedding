@@ -2,10 +2,23 @@ from flask_appbuilder import ModelView, expose
 from flask import render_template
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 
-from wed.app.models.guests import guestTypeModel, guestModel
+from wed.app.models.guests import guestTypeModel, guestModel, dinnerModel
 from flask import request
 from flask_login import current_user
 from flask import g
+
+class dinnerView(ModelView):
+    route_base = "/dinner"
+    datamodel =  SQLAInterface(dinnerModel)
+    show_title = "桌信息"
+    add_title = "添加新桌"
+    edit_title = "编辑桌信息"
+    list_title = "桌列表"
+    label_columns = {"remark":"备注","sn":"桌号","guests":"宾客","guest_number":"宾客数量"}
+
+    add_columns = ["sn","guests", "remark"]
+    edit_columns = ["sn","guests","remark"]
+    list_columns = ["sn","remark","guest_number"]
 
 class guestTypeView(ModelView):
     route_base = "/gtype"

@@ -62,12 +62,12 @@ class photoView(ModelView):
 
         waiting = session["qimg"]
         if len(waiting) ==0: # replenish img list
-            logging.info("replenishing image list".center(100,"="))
+            # logging.info("replenishing image list".center(100,"="))
             waiting = imglist
 
         unspoken = session["qlines"]
         if len(unspoken) == 0: # replenish quotes list
-            logging.info("replenishing quote list".center(100,"-"))
+            # logging.info("replenishing quote list".center(100,"-"))
             unspoken = get_all_quotes()
 
         try:
@@ -95,8 +95,6 @@ class photoView(ModelView):
 
         session["lastimg"] = img_url
         session["lastline"] = qline
-        logging.info("[lastimg]%s"%img_url)
-        logging.info("[lastline]%s"%qline)
 
         return self.render_template("quotes.html",
                                     nexturl = hex(random.randint(10000, 20000)),

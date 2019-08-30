@@ -3,7 +3,7 @@ from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder import ModelView
 
 from .. import appbuilder, db
-from .guests import guestTypeView,guestView
+from .guests import guestTypeView,guestView,dinnerView
 from .photo import photoView
 
 """
@@ -52,6 +52,8 @@ appbuilder.add_view_no_menu(guestTypeView)
 appbuilder.add_view_no_menu(guestView)
 appbuilder.add_view_no_menu(photoView)
 
+
+
 appbuilder.add_link("宾客名单","/guest/all/", icon="fa-address-book",category_label="宾客",
                     category="guests",category_icon="fa-address-card")
 appbuilder.add_link("编辑宾客列表","/guest/list/", icon="fa-address-book",category_label="宾客",
@@ -59,6 +61,9 @@ appbuilder.add_link("编辑宾客列表","/guest/list/", icon="fa-address-book",
 
 appbuilder.add_link("添加宾客","/guest/add", icon="fa-user-plus",category_label="宾客",
                     category="guests",category_icon="fa-address-card")
+
+appbuilder.add_view(dinnerView,"分桌列表", icon="fa-hand-peace-o",
+                    category_label="宾客",category="guests", category_icon="fa-address-card")
 
 appbuilder.add_link("分组列表","/gtype/all/", icon="fa-group",category_label="宾客",
                     category="guests",category_icon="fa-address-card")
