@@ -56,26 +56,30 @@ class photoView(ModelView):
     def showquote(self,strs = ""):
         if "qimg" not in session :
             session["qimg"] = imglist
+
         if "qlines" not in session:
             session["qlines"] = get_all_quotes()
 
         waiting = session["qimg"]
         if len(waiting) ==0: # replenish img list
-            print("replenishing image list")
+            logging.info("replenishing image list".center(100,"="))
             waiting = imglist
 
         unspoken = session["qlines"]
         if len(unspoken) == 0: # replenish quotes list
-            print("replenishing quote list")
+            logging.info("replenishing quote list".center(100,"-"))
             unspoken = get_all_quotes()
 
         try:
             img_url = random.choice(waiting)
             waiting.remove(img_url)
+
         except Exception as e:
             img_url = random.choice(imglist)
             logging.error(str(e))
+
         session["qimg"] = waiting
+
         try:
             qline = random.choice(unspoken)
             unspoken.remove(qline)
@@ -84,11 +88,16 @@ class photoView(ModelView):
             logging.error(str(e))
         session["qlines"] = unspoken
 
+        logging.info((("lastline" in session) and ("lastimg" in session)))
+
         lastbtn = {"line":session["lastline"],
-                   "img":session["lastimg"]} if ("lastline" in session) and ("lastimg" in session) else False
+                   "img":session["lastimg"]} if (("lastline" in session) and ("lastimg" in session)) else False
 
         session["lastimg"] = img_url
         session["lastline"] = qline
+        logging.info("[lastimg]%s"%img_url)
+        logging.info("[lastline]%s"%qline)
+
         return self.render_template("quotes.html",
                                     nexturl = hex(random.randint(10000, 20000)),
                                     lastbtn = lastbtn,
