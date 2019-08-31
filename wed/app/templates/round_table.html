@@ -1,0 +1,18 @@
+{% extends "appbuilder/base.html"%}
+{% block content %}
+<h1>{{dinner.sn}}</h1>
+<h3>目前共{{dinner.guest_number}} 个宾客</h3>
+<h3> 这一桌情况: {{dinner.remark}}</h3>
+<hr>
+<a href="/dinner/edit/{{dinner.id}}">✏️编辑这一桌宾客️</a>
+<a href="/dinner/list">🔍查看分桌列表️</a>
+<div>
+    {% for guest in dinner.guests %}
+        <div class = "panel panel-default col-md-4">
+            <div class="panel-heading">{{guest.type}}</div>
+            <div class="panel-body">{{guest}}</div>
+        </div>
+
+    {% endfor %}
+</div>
+{% endblock  %}

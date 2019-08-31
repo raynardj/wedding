@@ -1,6 +1,7 @@
 from . import db
 from flask_appbuilder import Model
 from flask_appbuilder.models.mixins import AuditMixin
+from flask import Markup
 
 class guestTypeModel(Model,AuditMixin):
     __tablename__ = "guest_type"
@@ -28,6 +29,10 @@ class dinnerModel(Model,AuditMixin):
     @property
     def guest_number(self):
         return sum(list(g.gcount for g in self.guests))
+
+    @property
+    def round_btn(self):
+        return Markup("<a class='btn btn-success' href='/dinner/round/%s/' target = '_blank'>这桌宾客</a>" % (self.id))
 
 class guestModel(Model,AuditMixin):
     __tablename__ = "guest"

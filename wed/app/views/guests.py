@@ -14,11 +14,19 @@ class dinnerView(ModelView):
     add_title = "添加新桌"
     edit_title = "编辑桌信息"
     list_title = "桌列表"
-    label_columns = {"remark":"备注","sn":"桌号","guests":"宾客","guest_number":"宾客数量"}
+    label_columns = {
+        "round_btn":"这一桌人",
+        "remark":"备注","sn":"桌号",
+        "guests":"宾客","guest_number":"宾客数量"}
 
     add_columns = ["sn","guests", "remark"]
     edit_columns = ["sn","guests","remark"]
-    list_columns = ["sn","remark","guest_number"]
+    list_columns = ["round_btn","sn","remark","guest_number"]
+
+    @expose("/round/<dinner_id>/")
+    def roundTable(self, dinner_id):
+        dinner = self.datamodel.get(int(dinner_id))
+        return self.render_template("round_table.html", dinner = dinner)
 
 class guestTypeView(ModelView):
     route_base = "/gtype"
