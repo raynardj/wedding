@@ -11,6 +11,7 @@ from docx import Document
 from datetime import datetime
 from io import BytesIO
 from docx.oxml.ns import qn
+import random
 
 class dinnerView(ModelView):
     route_base = "/dinner"
@@ -36,14 +37,15 @@ class dinnerView(ModelView):
     @expose("/map/")
     def dinnerMap(self):
         from .. import db
-        dinners = db.session.query(dinnerModel).all()
+        dinners = db.session.query(dinnerModel).order_by(dinnerModel.sn.asc()).all()
         standing = db.session.query(guestModel).filter(guestModel.dinner_id==None).all()
-        return self.render_template("map.html", dinners = dinners, standing = standing)
+        rdhash = hex(random.randint(10000, 20000))
+        return self.render_template("map.html", dinners = dinners, standing = standing, rdhash=rdhash)
 
-    @expose("/getmap/")
-    def getMap(self):
+    @expose("/getmap/<rdhash>/")
+    def getMap(self,rdhash):
         from .. import db
-        dinners = db.session.query(dinnerModel).all()
+        dinners = db.session.query(dinnerModel).order_by(dinnerModel.sn.asc()).all()
         f = BytesIO()
         doc = Document()
         doc.styles['Normal'].font.name = u'宋体'
