@@ -5,7 +5,12 @@ from flask_appbuilder.models.sqla.interface import SQLAInterface
 from wed.app.models.guests import guestTypeModel, guestModel, dinnerModel
 from flask import request
 from flask_login import current_user
-from flask import g
+from flask import g, send_file
+
+from docx import Document
+from datetime import datetime
+from io import BytesIO
+from docx.oxml.ns import qn
 
 class dinnerView(ModelView):
     route_base = "/dinner"
@@ -27,6 +32,38 @@ class dinnerView(ModelView):
     def roundTable(self, dinner_id):
         dinner = self.datamodel.get(int(dinner_id))
         return self.render_template("round_table.html", dinner = dinner)
+
+    @expose("/map/")
+    def dinnerMap(self):
+        from .. import db
+        dinners = db.session.query(dinnerModel).all()
+        standing = db.session.query(guestModel).filter(guestModel.dinner_id==None).all()
+        return self.render_template("map.html", dinners = dinners, standing = standing)
+
+    @expose("/getmap/")
+    def getMap(self):
+        from .. import db
+        dinners = db.session.query(dinnerModel).all()
+        f = BytesIO()
+        doc = Document()
+        doc.styles['Normal'].font.name = u'宋体'
+        doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), u'宋体')
+        doc.add_heading("宾客座位名单", level = 0)
+        for dinner in dinners:
+            dh1, dh2, guests = self.dinnerText(dinner)
+            doc.add_heading(*dh1)
+            doc.add_heading(*dh2)
+            doc.add_paragraph(guests)
+
+        now_ = (int(datetime.now().timestamp()))
+        doc.save(f)
+        f.seek(0)
+        return send_file(f,as_attachment=True, attachment_filename="wedding_map_%s.docx"%(now_))
+
+    def dinnerText(self, dinner):
+        dh1,dh2 = ("%s(%s)"%(dinner.sn, dinner.guest_number),3),(str(dinner.remark),4)
+        guests = ",".join(list("%s %s"%(str(guest),"(%s)"%guest.remark if guest.remark else "") for guest in dinner.guests))
+        return dh1, dh2, guests
 
 class guestTypeView(ModelView):
     route_base = "/gtype"

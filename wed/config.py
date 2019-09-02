@@ -27,7 +27,7 @@ CSRF_ENABLED = True
 APP_NAME = "很美丽的婚礼"
 
 # Uncomment to setup Setup an App icon
-APP_ICON = "static/img/favicon.ico"
+# APP_ICON = "static/img/favicon.ico"
 
 # ----------------------------------------------------
 # AUTHENTICATION CONFIG

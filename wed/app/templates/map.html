@@ -1,0 +1,22 @@
+{% extends "appbuilder/base.html"%}
+{% block content %}
+<h1>桌子分配</h1>
+<hr>
+<a href="/dinner/list" class="btn btn-success" target="_blank">编辑桌牌</a>
+<a href="/dinner/getmap/" class="btn btn-danger">下载桌牌清单</a>
+<hr>
+<h2>还未分配的</h2>
+{% for guest in standing%}
+★{{guest}}{% if guest.remark%}({{guest.remark}}){%endif%}
+{% endfor %}
+{% for dinner in dinners%}
+<hr>
+<h3>{{dinner.sn}}({{dinner.guest_number}})</h3>
+{{dinner.remark}}
+    <ul>
+    {% for guest in dinner.guests%}
+        <li>{{guest}} {% if guest.remark%}({{guest.remark}}){%endif%}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}
