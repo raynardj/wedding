@@ -1,6 +1,15 @@
 # Wedding Guest Planning App
 
-### Things to config and customize
+> Ray & Jamie's Amazing wedding
+Built with flask appbulder
+With illustrations
 
-* You'll have to apply for a baidu map API key for the interactive map, or you can discard the map part altogether.
-* Create "宾客类别" 1st, then create new guest
+### Installation
+```
+git clone https://github.com/raynardj/wedding
+cd wedding
+docker build -t wed .
+docker run -it --rm -p "8090:8080" wed
+```
+
+Visit the service on ```http://localhost:8090```
