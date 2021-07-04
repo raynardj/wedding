@@ -59,6 +59,9 @@
 
 <body>
     <img id='bg' src="" alt="">
+    <div id="quote_box">
+        <div id="words"></div>
+    </div>
 </body>
 <script>
     let images = ["img_0.jpg", "img_10.jpg", "img_11.jpg","img_12.jpg","img_13.jpg",
@@ -73,6 +76,17 @@
         "img_55.jpg","img_5.jpg","img_6.jpg","img_7.jpg","img_8.jpg","img_9.jpg",]
 
 
+    let quotes = [`新娘:虽然你对可爱的事物感知度很差，但你不知道自己有多可爱`,`新娘:Cute is just your cover. You bitch really got me. (用卖萌掩护自己, 你个贱人真治我)`,`新娘:你从来不画饼，出于探索和爱好一步步成就自己，看你做事投入的样子，简直怀疑你是不是一只白羊。`,`新娘: 那一两天，阳光很好，捧着警世恒言，和你安静的在前庭后院踱步，飞虫的嗡嗡声很响。这可是我中学时yy未来男朋友的画面。`,`新娘: 我爱你，想破除我所有原则的那种。`,`新娘:因为有灵魂的人才配用灵魂伴侣来称呼自己或对方。遇见你之后才真正觉得，算是遇上了一个真正的灵魂`,`新娘: 世界上任何两个人之间的关系都是一场博弈，但爱是强大到让人破除自我底线和规则的驱动力，是彼此沟通，彼此迁就，并从中获得牺牲但觉开心的力量。`,`新娘: 你知道吗？前天翻了以前的照片和日记，我突然发现，以前迷茫的时候我的每一次呐喊和强烈的想要挣脱想要变成的样子，遇到你后我全都做到了。`,`新娘:有那么几个瞬间我特别希望我们各自做着数学题的时候时间就回到了高中，你在我对面坐着，跟我比数学语文英语。`,`新娘: 泉涸；鱼相与处于陆；相呴以湿；相濡以沫...  《庄子还是老子我忘了》`,`新娘:如果更有钱会不会更幸福, 结论是, 更有钱我们可能只是换了个地方享受同样的幸福, 内心少了担心一些事情`,`新郎: Roses are red,
+
+Violets are blue,
+
+Tea is hot, and so are you.`,`新娘: 说真的，要是几年前有人跟我说，两个人关系可以越来越甜蜜，我是绝壁不信的。`,`新娘: 有越来越多个瞬间，我心里会突然跳出来一句“I'm so f**king sure”`,
+`新娘: 制造甜蜜不是你最擅长的事，时刻让我感到幸福才是。`,`新郎:虽然我们胆小，虽然并没有山盟海誓，但会深知那是自己的中意，是用不着约定的一起白头，是那么多年素未谋面的迟到。`,
+`新郎:每天觉得自己幸运的日子，就此开始。`,`新郎:花前走得好慢，月下时间好快。`,`新郎: 我们能在一起，无疑是21世纪以来这个世界上发生的感觉最对的一件事情。`,
+`新郎: There isn’t a corner on you I don’t find fascinating.`,`新郎: I like the kids. They are as childish as you are, but they spend less effort to cover it.`,
+`新郎：You are as good a girlfriend as a male human can get.`,`新郎:你我的责任是巨大的。 因为我们中没有一个人可以接受平庸。`,`新郎:和你在一起， 很多该完美的时刻果然完美`,`新郎:We will be together as a family, not to a more stable life, not for some tax cuts, not to please our parents, but to adventure, to live out of the crowd, to win, to be others' envy and unreachable dreams, to lead a legendary life only feasible through our alliance.`,`新郎：Tell me you wish that same wish, tell me often and tell me true.`,`新郎：我怕失去你的感觉，始终犹如初识那天一样。`,`新郎:我们会组建一个家庭, 不为了稳定, 不为了避税, 不为了取悦家长, 但为了精彩, 为了和人群不一样, 为了赢, 为了成为别人的嫉妒和望尘莫及, 为了过上只有我们联姻才可能实现的传奇`,`新郎：没有你的我，从来不曾如此开挂。`,`" Exclusive source of happiness to my poor old soul." 新郎如是称呼新娘`,`新郎: 我意识到，这个世界上能懂我的人很少，很幸运懂我的那个人同时也是陪我的那个人。`,`新郎：活了二十几年就能找到一个你，已经很划算了。`,`新郎：一觉醒来发现又有一天可以巴结你，刷牙有了意义，刮胡子有了实现，而每次约到你吃饭就是一种庆祝。`,`新郎: 你那些我看厌的优点照样妥妥地把任何别的庸脂俗粉排在后面。`,`新郎：你是一个多大的奇迹，或许你自己永远无法感知到。`,`新郎: 吃，我们恋爱关系的扎实基础`,`新郎: 你快点回来吧，在一个屋子里，把这个屋子叫做家。一个风不能进来、雨不能进来、我们会打死每个蜘蛛蟑螂、精心布置的家。`,`新郎：这种事情一定要信里写清楚，因为当面说的话你是一定会笑的`,`新郎：2016年我充满感激、没有什么遗憾，绝大多数，是因为你。`,`新郎：忘记你有多么地属于我，像初识一样地去担心失去你。`,`新郎: 有时候你在冲过来搂着我的时候, 我想象就算我失去工作, 一无所有, 头发花白, 你也会很爱我的.`,`新郎：有了你之后，我总觉得我需要一场比较非凡的赢。`,`新郎: Even there are less than 2 souls believing in us, I WILL FIRMLY BELIEVE IN US.`,`新郎：此时你一定在家, 吸着你通常的猫. 浑然无知你用存在造成的奇迹。`,`新郎：那个以为自己很淘气且可以欺负我的眼神, 我真的很爱你。`,
+`新娘:第一次见面的很多细节我都清楚地记得，你在卖力讲故事，而我努力不让自己跑神，一直想偷偷瞄你，但又不太敢`
+    ]
     const choose = (choices) => {
         var index = Math.floor(Math.random() * choices.length);
         return choices[index];
@@ -87,8 +101,11 @@
 
     const sample_image = () => {
         var filename = choose(images);
+        var quote = choose(quotes);
         console.info(`Showing backgroun ${filename}`);
+        console.info(`Showing quote: ${quote}`);
         document.querySelector("#bg").src = get_link(filename);
+        document.querySelector("#words").innerHTML = quote;
     }
 
     sample_image();
