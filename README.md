@@ -4,6 +4,10 @@
 Built with flask appbulder
 With illustrations
 
+### The static option
+
+You can view the static version [💘here](https://raynardj.github.io/wedding/)
+
 ### Installation
 ```
 git clone https://github.com/raynardj/wedding
