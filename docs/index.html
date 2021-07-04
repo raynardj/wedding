@@ -108,7 +108,7 @@ Tea is hot, and so are you.`,`新娘: 说真的，要是几年前有人跟我说
         console.info(`Showing backgroun ${filename}`);
         console.info(`Showing quote: ${quote}`);
         document.querySelector("#bg").src = get_link(filename);
-        document.querySelector("#words").innerHTML = quote;
+        document.querySelector("#words").innerHTML = `${quote}<a href='/wedding/' class="nextline"> Next >> </a>`;
     }
 
     sample_image();
